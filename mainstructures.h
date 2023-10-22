@@ -31,6 +31,12 @@ enum gameResult {
 	DRAW
 };
 
+enum exitCode {
+	NO_ERRORS,
+	CARD_SUIT_ERROR,
+	CARD_RANK_ERROR
+};
+
 struct Card {
 	cards_characteristics::CardSuit suit;
 	cards_characteristics::CardRank rank;
