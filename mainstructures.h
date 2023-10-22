@@ -25,6 +25,12 @@ namespace cards_characteristics {
 	};
 }
 
+enum gameResult {
+	WIN,
+	LOSE,
+	DRAW
+};
+
 struct Card {
 	cards_characteristics::CardSuit suit;
 	cards_characteristics::CardRank rank;
