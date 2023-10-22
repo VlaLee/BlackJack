@@ -25,9 +25,7 @@ namespace cards_characteristics {
 	};
 }
 
-using namespace cards_characteristics;
-
 struct Card {
-	CardSuit suit;
-	CardRank rank;
+	cards_characteristics::CardSuit suit;
+	cards_characteristics::CardRank rank;
 };
