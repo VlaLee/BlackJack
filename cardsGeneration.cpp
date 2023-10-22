@@ -2,12 +2,37 @@
 #include <array>
 #include <string>
 #include <cstdlib>
+#include <ctime>
 #include "mainstructures.h"
 #include "constants.h"
 
 using namespace std;
 using namespace cards_characteristics;
 using namespace constants;
+
+void setRandomSettings() {
+	srand(static_cast<unsigned int>(time(0)));
+	rand();
+}
+
+int getRandomNumber(int min, int max) {
+	static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
+
+	return static_cast<int>(rand() * fraction * (max - min + 1) + min);
+}
+
+void swapCard(Card& card_x, Card& card_y) {
+	Card temp_card = card_x;
+	card_x = card_y;
+	card_y = temp_card;
+}
+
+void snuffleDeck(array<Card, deck_size>& deck) {
+	for (int cardIndex = 0; cardIndex < deck_size; cardIndex++) {
+		unsigned short swapIndex = getRandomNumber(0, 51);
+		swapCard(deck.at(cardIndex), deck.at(swapIndex));
+	}
+}
 
 unsigned short getCardValue(const Card& card) {
 	switch (card.rank) {
@@ -54,15 +79,15 @@ string getCardName(const Card& card) {
 	default:		 cout << "\nCARD_RANK_ERROR"; exit(CARD_RANK_ERROR);
 	}
 
-	return cardName;
+	return cardName + ' ';
 }
 
-void print_card(const Card& card) {
+void printCard(const Card& card) {
 	// вспомогательная функция вывода карт в формате "<масть><номинал>"
-	cout << getCardName(card) << '\n';
+	cout << getCardName(card);
 }
 
-void print_deck(const array<Card, deck_size>& deck) {
-	for (int card = 0; card < deck_size; card++)
-		print_card(deck.at(card));
+void printDeck(const array<Card, deck_size>& deck) {
+	for (int cardIndex = 0; cardIndex < deck_size; cardIndex++)
+		printCard(deck.at(cardIndex));
 }
