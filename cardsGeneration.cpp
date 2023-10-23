@@ -71,7 +71,7 @@ string getCardName(const Card& card) {
 	case RANK_7:	 cardName += "7"; break;
 	case RANK_8:	 cardName += "8"; break;
 	case RANK_9:	 cardName += "9"; break;
-	case RANK_10:    cardName += "10"; break;
+	case RANK_10:    cardName += "T"; break;
 	case RANK_JACK:  cardName += "J"; break;
 	case RANK_QUEEN: cardName += "Q"; break;
 	case RANK_KING:	 cardName += "K"; break;
@@ -83,7 +83,7 @@ string getCardName(const Card& card) {
 }
 
 void printCard(const Card& card) {
-	// вспомогательная функция вывода карт в формате "<масть><номинал>"
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ "<пїЅпїЅпїЅпїЅпїЅ><пїЅпїЅпїЅпїЅпїЅпїЅпїЅ>"
 	cout << getCardName(card);
 }
 
