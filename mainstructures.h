@@ -5,7 +5,8 @@ namespace cards_characteristics {
 		DIAMONDS,
 		HEARTS,
 		CLUBS,
-		SPADES
+		SPADES,
+		SUIT_NONE
 	};
 
 	enum CardRank {
@@ -21,7 +22,8 @@ namespace cards_characteristics {
 		RANK_JACK,
 		RANK_QUEEN,
 		RANK_KING,
-		RANK_ACE
+		RANK_ACE,
+		RANK_NONE
 	};
 }
 
