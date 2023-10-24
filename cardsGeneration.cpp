@@ -53,41 +53,41 @@ unsigned short getCardValue(const Card& card) {
 	}
 }
 
-pair <string, string> getCardName(const Card& card) {
-	pair <string, string> cardName = {"", ""};
+string getCardName(const Card& card) {
+	string cardName = "";
 	switch (card.suit) {
-	case DIAMONDS: cardName.first += "D"; break;
-	case HEARTS:   cardName.first += "H"; break;
-	case CLUBS:    cardName.first += "C"; break;
-	case SPADES:   cardName.first += "S"; break;
+	case DIAMONDS: cardName += "D"; break;
+	case HEARTS:   cardName += "H"; break;
+	case CLUBS:    cardName += "C"; break;
+	case SPADES:   cardName += "S"; break;
 	default:	   cout << "\nCARD_SUIT_ERROR"; exit(CARD_SUIT_ERROR);
 	}
 	switch (card.rank) {
-	case RANK_2:	 cardName.second += "2"; break;
-	case RANK_3:	 cardName.second += "3"; break;
-	case RANK_4:	 cardName.second += "4"; break;
-	case RANK_5:	 cardName.second += "5"; break;
-	case RANK_6:	 cardName.second += "6"; break;
-	case RANK_7:	 cardName.second += "7"; break;
-	case RANK_8:	 cardName.second += "8"; break;
-	case RANK_9:	 cardName.second += "9"; break;
-	case RANK_10:    cardName.second += "T"; break;
-	case RANK_JACK:  cardName.second += "J"; break;
-	case RANK_QUEEN: cardName.second += "Q"; break;
-	case RANK_KING:	 cardName.second += "K"; break;
-	case RANK_ACE:   cardName.second += "A"; break;
+	case RANK_2:	 cardName += "2"; break;
+	case RANK_3:	 cardName += "3"; break;
+	case RANK_4:	 cardName += "4"; break;
+	case RANK_5:	 cardName += "5"; break;
+	case RANK_6:	 cardName += "6"; break;
+	case RANK_7:	 cardName += "7"; break;
+	case RANK_8:	 cardName += "8"; break;
+	case RANK_9:	 cardName += "9"; break;
+	case RANK_10:    cardName += "T"; break;
+	case RANK_JACK:  cardName += "J"; break;
+	case RANK_QUEEN: cardName += "Q"; break;
+	case RANK_KING:	 cardName += "K"; break;
+	case RANK_ACE:   cardName += "A"; break;
 	default:		 cout << "\nCARD_RANK_ERROR"; exit(CARD_RANK_ERROR);
 	}
 
-	return cardName;
+	return cardName + ' ';
 }
 
-// void printCard(const Card& card) {
-// 	// ��������������� ������� ������ ���� � ������� "<�����><�������>"
-// 	cout << getCardName(card);
-// }
+void printCard(const Card& card) {
+	// ��������������� ������� ������ ���� � ������� "<�����><�������>"
+	cout << getCardName(card);
+}
 
-// void printDeck(const array<Card, deck_size>& deck) {
-// 	for (int cardIndex = 0; cardIndex < deck_size; cardIndex++)
-// 		printCard(deck.at(cardIndex));
-// }
+void printDeck(const array<Card, deck_size>& deck) {
+	for (int cardIndex = 0; cardIndex < deck_size; cardIndex++)
+		printCard(deck.at(cardIndex));
+}
