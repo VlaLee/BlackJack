@@ -212,8 +212,6 @@ gameResult playBlackJack(array<Card, deck_size>& deck, double &bet, double &bank
 
 int main() {
     system("cls");
-
-    cout << is_digit('d');
 	
     // Создали колоду
     setRandomSettings();

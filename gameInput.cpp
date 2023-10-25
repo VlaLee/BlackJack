@@ -108,7 +108,7 @@ void getPlayerBet(double& bet, double bank) {
 			else if (bet < 0)
 				std::cout << "Your bet is negative. Please enter your bet again: ";
 			else if (bet == 0)
-				std::cout << "Your bet can't equal to zero. Please enter your bet again";
+				std::cout << "Your bet can't equal to zero. Please enter your bet again: ";
 			else
 				break;
 		}
