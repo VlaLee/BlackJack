@@ -21,7 +21,10 @@
     <ClCompile Include="cardsGeneration.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="output.cpp">
+    <ClCompile Include="gameOutput.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="gameInput.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,10 +38,13 @@
     <ClInclude Include="mainstructures.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="output.h">
+    <ClInclude Include="gameOutput.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="patterns.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="gameInput.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

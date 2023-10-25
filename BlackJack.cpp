@@ -5,24 +5,24 @@
 #include "cardsgeneration.h"
 #include "constants.h"
 #include "mainstructures.h"
-#include "output.h"
+#include "gameOutput.h"
+#include "gameInput.h"
 
 using namespace std;
 using namespace cards_characteristics;
 using namespace constants;
 
-gameResult insuranceScenario(array<Card, deck_size>& deck, unsigned short& playerScore, unsigned short& dealerScore, vector <Card>& playerCards, vector <Card>& dealerCards, long long &bet, long long &bank) {
+gameResult insuranceScenario(array<Card, deck_size>& deck, unsigned short& playerScore, unsigned short& dealerScore, vector <Card>& playerCards, vector <Card>& dealerCards, double &bet, double &bank) {
     string userMessage;
     
     if (playerScore == 21) {
         cout << "First dealer's card is Ace and you have 21. " <<
             "Do you want to get an immediate win ? Enter 'Yes' or 'No': ";
-        cin >> userMessage;
+        getPlayerChoiceYesNo(userMessage);
 
-        if (userMessage == "Yes") {
+        if (is_answer_YES(userMessage))
             return WIN;
-        }
-        else if (userMessage == "No") {
+        else if (is_answer_NO(userMessage)) {
             dealerCards.erase(dealerCards.end() - 1);
 
             // Вторая карта дилеру
@@ -43,9 +43,9 @@ gameResult insuranceScenario(array<Card, deck_size>& deck, unsigned short& playe
     else if (bank > bet * 1.5) {
         cout << "First dealer's card is Ace. Do You wanna make an insurance bet? " <<
             "Enter 'Yes' or 'No': ";
-        cin >> userMessage;
+        getPlayerChoiceYesNo(userMessage);
 
-        if (userMessage == "Yes") {
+        if (is_answer_YES(userMessage)) {
             dealerCards.erase(dealerCards.end() - 1);
 
             // Вторая карта дилеру
@@ -64,15 +64,14 @@ gameResult insuranceScenario(array<Card, deck_size>& deck, unsigned short& playe
     return CONTINUE;
 }
 
-gameResult doubleDownScenario(array<Card, deck_size>& deck, unsigned short& playerScore, unsigned short& index, unsigned short& dealerScore, vector <Card>& playerCards, vector <Card>& dealerCards, long long& bet, long long& bank, bool &isDD) {
+gameResult doubleDownScenario(array<Card, deck_size>& deck, unsigned short& playerScore, unsigned short& index, unsigned short& dealerScore, vector <Card>& playerCards, vector <Card>& dealerCards, double& bet, double& bank, bool &isDD) {
     string userMessage;
 
     if (bank >= 2 * bet) {
-        cout << "If you want to double your bet then enter " <<
-            "'Yes' otherwise 'No': ";
-        cin >> userMessage;
+        cout << "If you want to double your bet then enter 'Double' otherwise 'No': ";
+        getPlayerChoiceDoubleNo(userMessage);
 
-        if (userMessage == "Yes") {
+        if (is_answer_DOUBLE(userMessage)) {
             bet *= 2;
             isDD = false;
         }
@@ -80,15 +79,15 @@ gameResult doubleDownScenario(array<Card, deck_size>& deck, unsigned short& play
 
     else {
         cout << "If you want all in then enter 'Yes' otherwise 'No': ";
-        cin >> userMessage;
+        getPlayerChoiceYesNo(userMessage);
 
-        if (userMessage == "Yes") {
+        if (is_answer_YES(userMessage)) {
             bet = bank;
             isDD = false;
         }
     }
 
-    if (userMessage == "Yes") {
+    if (!isDD) {
         playerScore += getCardValue(deck.at(index));
         playerCards.push_back(deck.at(index));
         index++;
@@ -101,7 +100,7 @@ gameResult doubleDownScenario(array<Card, deck_size>& deck, unsigned short& play
     return CONTINUE;
 }
 
-gameResult playBlackJack(array<Card, deck_size>& deck, long long &bet, long long &bank) {
+gameResult playBlackJack(array<Card, deck_size>& deck, double &bet, double &bank) {
     string userMessage;	
 
     snuffleDeck(deck);
@@ -159,10 +158,10 @@ gameResult playBlackJack(array<Card, deck_size>& deck, long long &bet, long long
     if (isDD && playerScore < 21) {
         while (true) {
             cout << "If you want to get another card then enter "<<
-                "'Yes' otherwise 'No': ";
-            cin >> userMessage;
+                "'Hit' otherwise 'Stand': ";
+            getPlayerChoiceHitStand(userMessage);
 
-            if (userMessage == "Yes") {
+            if (is_answer_HIT(userMessage)) {
                 playerScore += getCardValue(deck.at(index));
                 playerCards.push_back(deck.at(index));
                 index++;
@@ -173,7 +172,7 @@ gameResult playBlackJack(array<Card, deck_size>& deck, long long &bet, long long
                 }  
             }
 
-            if (userMessage == "No"  || playerScore == 21) {
+            if (is_answer_STAND(userMessage) || playerScore == 21) {
                 break;
             }
         }
@@ -191,7 +190,7 @@ gameResult playBlackJack(array<Card, deck_size>& deck, long long &bet, long long
         dealerScore--;
     }
     
-    if(playerScore == 21 && dealerScore != 21 && playerCards.size() == 2) {
+    if (playerScore == 21 && dealerScore != 21 && playerCards.size() == 2) {
         bet *= 1.5;
         return WIN;
     }
@@ -211,27 +210,10 @@ gameResult playBlackJack(array<Card, deck_size>& deck, long long &bet, long long
         return LOSE;
 }
 
-long long getPlayerBet(long long bank) {
-    long long bet;
-
-    cout << "Enter your bet amount: ";
-
-    while (true) {
-        cin >> bet;
-
-        if (bet > bank)
-            cout << "Your bet is more then your bank. Please enter your bet again: ";
-        else if (bet <= 0)
-            cout << "Your bet is negative. Please enter your bet again: ";
-        else
-            break;
-    }
-
-    return bet;
-}
-
 int main() {
     system("cls");
+
+    cout << is_digit('d');
 	
     // Создали колоду
     setRandomSettings();
@@ -245,60 +227,52 @@ int main() {
         }
     }
 
-    long long bank = default_bank;
-    long long bet;
+    double bank = default_bank;
+    double bet;
 
     string userMessage;
     cout << "If you want to start the game enter 'Yes' otherwise 'No': ";
-    cin >> userMessage;
-    if (userMessage == "Yes") {
-        cout << "Your bank: " << bank << endl;
+    getPlayerChoiceYesNo(userMessage);
+    if (!is_answer_YES(userMessage)) 
+        return NO_ERRORS;
 
-        while (true) {
-            if (bank == 0) {
-                cout << "Do u wanna get extra money? Enter 'Yes' or 'No': ";
+    cout << "Your bank: " << bank << endl;
 
-                while(true) {
-                    cin >> userMessage;
-                    if (userMessage == "Yes") {
-                        bank = 1000;
-                        break;
-                    }
-                    else if (userMessage=="No")
-                        return NO_ERRORS;
-                    else
-                        cout << "Incorrect input. Please try again: 'Yes' or 'No': ";
-                }	
-            }
+    while (true) {
+        if (bank == 0) {
+            cout << "Do u wanna get extra money? Enter 'Yes' or 'No': ";
+            getPlayerChoiceYesNo(userMessage);
+            if (is_answer_YES(userMessage))
+                bank = default_bank;
+            else
+                break;
+        }
       
-            bet = getPlayerBet(bank);
-            gameResult result = playBlackJack(gameDeck, bet, bank);
+        getPlayerBet(bet, bank);
+        gameResult result = playBlackJack(gameDeck, bet, bank);
 
-            if (result == WIN) {
-                cout << "WIN" << endl;
-                bank += bet;
-            }
-            if (result == LOSE) {
-                bank -= bet;
-                cout << "LOSE" << endl;
-            } 
-            if (result == DRAW) {
-                cout << "DRAW" << endl;
-            }
+        if (result == WIN) {
+            bank += bet;
+            cout << "WIN" << endl;
+        }
+        if (result == LOSE) {
+            bank -= bet;
+            cout << "LOSE" << endl;
+        } 
+        if (result == DRAW) {
+            cout << "DRAW" << endl;
+        }
 
-            cout << "Your bank: " << bank << "; bet: " << bet << endl;
-            cout << "If you want to play again enter 'Yes' otherwise 'No': ";
+        cout << "Your bank: " << bank << "; bet: " << bet << endl;
+        cout << "If you want to play again enter 'Yes' otherwise 'No': ";
 
-            while (true) {
-                cin >> userMessage;
+        getPlayerChoiceYesNo(userMessage);
 
-                if (userMessage == "No")
-                    return NO_ERRORS;
-                else if (userMessage == "Yes")
-                    break;
-                else
-                    cout << "Incorrect input. Please try again: 'Yes' or 'No': ";
-            }	
-	    }
-    }
+        if (is_answer_NO(userMessage)) {
+            cout << "Thanks for playing!";
+            break;
+        }
+	}
+
+    return NO_ERRORS;
 }

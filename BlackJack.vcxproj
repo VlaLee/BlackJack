@@ -129,13 +129,15 @@
   <ItemGroup>
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="cardsGeneration.cpp" />
-    <ClCompile Include="output.cpp" />
+    <ClCompile Include="gameInput.cpp" />
+    <ClCompile Include="gameOutput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cardsgeneration.h" />
     <ClInclude Include="constants.h" />
+    <ClInclude Include="gameInput.h" />
     <ClInclude Include="mainstructures.h" />
-    <ClInclude Include="output.h" />
+    <ClInclude Include="gameOutput.h" />
     <ClInclude Include="patterns.h" />
   </ItemGroup>
   <ItemGroup>
