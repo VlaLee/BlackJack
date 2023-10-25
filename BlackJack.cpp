@@ -29,6 +29,7 @@ gameResult insuranceScenario(array<Card, deck_size>& deck, unsigned short& playe
             dealerScore += getCardValue(deck.at(3));
             dealerCards.push_back(deck.at(3));
             output(playerCards, dealerCards);
+       
 
             if (dealerScore > 20) {
                 return DRAW;
@@ -52,6 +53,7 @@ gameResult insuranceScenario(array<Card, deck_size>& deck, unsigned short& playe
             dealerScore += getCardValue(deck.at(3));
             dealerCards.push_back(deck.at(3));
             output(playerCards, dealerCards);
+            
 
             if (dealerScore > 20)
                 return DRAW;
@@ -87,11 +89,12 @@ gameResult doubleDownScenario(array<Card, deck_size>& deck, unsigned short& play
         }
     }
 
-    if (!isDD) {
-        playerScore += getCardValue(deck.at(index));
-        playerCards.push_back(deck.at(index));
-        index++;
+    if (isDD==false) {
+        playerScore += getCardValue(deck.at(4));
+        playerCards.push_back(deck.at(4));
+        
         output(playerCards, dealerCards);
+         cout<<"Player: "<<playerScore<<"\tDealer: "<<dealerScore<<endl;
 
         if (playerScore > 21)
             return LOSE;
@@ -117,7 +120,7 @@ gameResult playBlackJack(array<Card, deck_size>& deck, double &bet, double &bank
     unsigned short index = 0;
     playerScore += getCardValue(deck.at(index));
     playerCards.push_back(deck.at(index));
-
+    
     // Первая карта дилеру
     index++;
     dealerScore += getCardValue(deck.at(index));
@@ -127,6 +130,7 @@ gameResult playBlackJack(array<Card, deck_size>& deck, double &bet, double &bank
     index++;
     playerScore += getCardValue(deck.at(index));
     playerCards.push_back(deck.at(index));
+
     output(playerCards, dealerCards);
 
     index += 2;
@@ -134,6 +138,7 @@ gameResult playBlackJack(array<Card, deck_size>& deck, double &bet, double &bank
     initializeClosedCard(closedCard);
     dealerCards.push_back(closedCard);
     output(playerCards, dealerCards);
+
 
     if (playerCards.at(0).rank == RANK_ACE && playerCards.at(1).rank == RANK_ACE)
         playerScore--;
@@ -151,6 +156,9 @@ gameResult playBlackJack(array<Card, deck_size>& deck, double &bet, double &bank
 
     if (playerScore == 10  || playerScore == 11) {
        gameResult tempResult = doubleDownScenario(deck, playerScore, dealerScore, index, playerCards, dealerCards, bet, bank, isDD);
+       if(isDD==false){
+            index++;
+       }
        if (tempResult != CONTINUE)
            return tempResult;
     }
@@ -166,6 +174,7 @@ gameResult playBlackJack(array<Card, deck_size>& deck, double &bet, double &bank
                 playerCards.push_back(deck.at(index));
                 index++;
                 output(playerCards,dealerCards);
+
 
                 if (playerScore > 21) {
                     return LOSE;
@@ -184,7 +193,8 @@ gameResult playBlackJack(array<Card, deck_size>& deck, double &bet, double &bank
         dealerCards.push_back(deck.at(3));
         output(playerCards, dealerCards);
     }
-    
+
+
     // Два туза у дилера
     if (dealerCards.at(0).rank == dealerCards.at(1).rank == RANK_ACE) {
         dealerScore--;
@@ -200,6 +210,7 @@ gameResult playBlackJack(array<Card, deck_size>& deck, double &bet, double &bank
         dealerCards.push_back(deck.at(index));
         index++;
         output(playerCards, dealerCards);
+         
     }
 
     if (dealerScore > 21  || playerScore > dealerScore)
