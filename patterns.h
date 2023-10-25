@@ -6,7 +6,7 @@
 using namespace std;
 
 namespace patterns {
-    vector<vector<string>> cardsUp = {
+    vector<vector<string>> cardsTopPart = {
                                     {" ________________________ ", 
                                      "|    /\\                  |",
                                      "|   /  \\                 |",
@@ -107,7 +107,7 @@ namespace patterns {
                                      "|                        |"}
                                 };
 
-    vector<vector<string>> cardsMid =  {
+    vector<vector<string>> cardsMiddlePart =  {
                                     {"|                        |",
                                      "|                        |",
                                      "|                        |",
@@ -155,7 +155,7 @@ namespace patterns {
 
                                 };
 
-    vector<vector<string>> cardsDown = {
+    vector<vector<string>> cardsBottomPart = {
                                     {"|                        |",
                                      "|               \\      / |",
                                      "|                \\====/  |",
