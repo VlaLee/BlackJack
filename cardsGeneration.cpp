@@ -90,3 +90,8 @@ void printDeck(const array<Card, deck_size>& deck) {
 	for (int cardIndex = 0; cardIndex < deck_size; cardIndex++)
 		printCard(deck.at(cardIndex));
 }
+
+void initializeClosedCard(Card& closedCard) {
+	closedCard.suit = SUIT_UNKNOWN;
+	closedCard.rank = RANK_UNKNOWN;
+}

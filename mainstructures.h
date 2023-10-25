@@ -6,7 +6,7 @@ namespace cards_characteristics {
 		HEARTS,
 		CLUBS,
 		SPADES,
-		SUIT_NONE
+		SUIT_UNKNOWN
 	};
 
 	enum CardRank {
@@ -23,14 +23,15 @@ namespace cards_characteristics {
 		RANK_QUEEN,
 		RANK_KING,
 		RANK_ACE,
-		RANK_NONE
+		RANK_UNKNOWN
 	};
 }
 
 enum gameResult {
 	WIN,
 	LOSE,
-	DRAW
+	DRAW,
+	CONTINUE // special gameResult value
 };
 
 enum exitCode {

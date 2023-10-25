@@ -20,3 +20,5 @@ std::string getCardName(const Card& card);
 void printCard(const Card& card);
 
 void printDeck(const std::array<Card, constants::deck_size>& deck);
+
+void initializeClosedCard(Card& closedCard);
