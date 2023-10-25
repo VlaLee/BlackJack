@@ -128,6 +128,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BlackJack.cpp" />
+    <ClCompile Include="cardsGeneration.cpp" />
+    <ClCompile Include="output.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cardsgeneration.h" />
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="mainstructures.h" />
+    <ClInclude Include="output.h" />
+    <ClInclude Include="patterns.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="rules.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

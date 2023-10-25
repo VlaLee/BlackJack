@@ -107,7 +107,7 @@ namespace patterns {
                                      "|                        |"}
                                 };
 
-vector<vector<string>> cardsMid =  {
+    vector<vector<string>> cardsMid =  {
                                     {"|                        |",
                                      "|                        |",
                                      "|                        |",
@@ -155,7 +155,7 @@ vector<vector<string>> cardsMid =  {
 
                                 };
 
-vector<vector<string>> cardsDown = {
+    vector<vector<string>> cardsDown = {
                                     {"|                        |",
                                      "|               \\      / |",
                                      "|                \\====/  |",

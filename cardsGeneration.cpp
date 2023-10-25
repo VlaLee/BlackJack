@@ -83,7 +83,6 @@ string getCardName(const Card& card) {
 }
 
 void printCard(const Card& card) {
-	// ��������������� ������� ������ ���� � ������� "<�����><�������>"
 	cout << getCardName(card);
 }
 

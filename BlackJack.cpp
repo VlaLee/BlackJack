@@ -16,159 +16,157 @@ string userMessage = "";
 long long int bank = 1000;
 long long int bet = 0;
 
-//int correctInput(string message){}
-
 gameResult playBlackJack(array<Card, deck_size>& deck) {
-  int insBet = 0;
-  cout << "Enter your bet amount: ";
+    int insBet = 0;
+    cout << "Enter your bet amount: ";
 
-  while (true) {
-	  cin >> bet;
+    while (true) {
+	    cin >> bet;
 
     if (bet>bank) {
-		  cout<<"Your bet is more then your bank. Please enter your bet again: ";
-	  }
-	  else if (bet<=0){
-		  cout<<"Your bet is negative. Please enter your bet again: ";
-	  }
-		else break;
-  }	
+		    cout<<"Your bet is more then your bank. Please enter your bet again: ";
+	    }
+	    else if (bet<=0){
+		    cout<<"Your bet is negative. Please enter your bet again: ";
+	    }
+	    else break;
+    }	
 
-  snuffleDeck(deck);
+    snuffleDeck(deck);
 
-  int playerScore = 0;
-  int dealerScore = 0;
-  vector <Card> playerCards;
-  vector <Card> dealerCards;
+    int playerScore = 0;
+    int dealerScore = 0;
+    vector <Card> playerCards;
+    vector <Card> dealerCards;
 
-  // Первая карта игроку
-  int index = 0;
+    // Первая карта игроку
+    int index = 0;
 
-  playerScore += getCardValue(deck[index]);
-  playerCards.push_back(deck[index]);
-  output(playerCards,dealerCards);
+    playerScore += getCardValue(deck[index]);
+    playerCards.push_back(deck[index]);
+    output(playerCards,dealerCards);
 
-  // Первая карта дилеру
-  index = 1;
+    // Первая карта дилеру
+    index = 1;
 
-  dealerScore += getCardValue(deck[index]);
-  dealerCards.push_back(deck[index]);
-  output(playerCards,dealerCards);
+    dealerScore += getCardValue(deck[index]);
+    dealerCards.push_back(deck[index]);
+    output(playerCards,dealerCards);
 
-  // Вторая карта игроку 
-  index = 2;
+    // Вторая карта игроку 
+    index = 2;
 
-  playerScore += getCardValue(deck[index]);
-  playerCards.push_back(deck[index]);
-  output(playerCards,dealerCards);
+    playerScore += getCardValue(deck[index]);
+    playerCards.push_back(deck[index]);
+    output(playerCards,dealerCards);
 
-  index++;
+    index++;
   
 	
 
 	//insurance
 
 
-  if (playerCards[0].rank == RANK_ACE && playerCards[1].rank == RANK_ACE)
-    playerScore--;
+    if (playerCards[0].rank == RANK_ACE && playerCards[1].rank == RANK_ACE)
+        playerScore--;
 
-	if (dealerScore==11) {
-		if (playerScore==21) {
-			cout<<"First dealer's card is Ace and you have 21. do you want to get an immediate win? Enter 'Yes' or 'No': ";
-			cin>>userMessage;
+    if (dealerScore==11) {
+	    if (playerScore==21) {
+		    cout<<"First dealer's card is Ace and you have 21. do you want to get an immediate win? Enter 'Yes' or 'No': ";
+		    cin>>userMessage;
 
-			if (userMessage=="Yes") {
-				return WIN;
-			}
-		}
-		else {
-			cout<<"First dealer's card is Ace. Do You wanna make an insurance bet? Enter 'Yes' or 'No': ";
-			cin>>userMessage;
+		    if (userMessage=="Yes") {
+			    return WIN;
+		    }
+	    }
+	    else {
+		    cout<<"First dealer's card is Ace. Do You wanna make an insurance bet? Enter 'Yes' or 'No': ";
+		    cin>>userMessage;
 
-			if (userMessage=="Yes") {
-				insBet=bet/2;
-				bet*=1.5;
-			}
-		}
-	}
+		    if (userMessage=="Yes") {
+			    insBet=bet/2;
+			    bet*=1.5;
+		    }
+	    }
+    }
 
-  if (playerScore == 21 && dealerScore < 10) {
-	bet*=1.5;
-	return WIN;
-  }
+    if (playerScore == 21 && dealerScore < 10) {
+        bet*=1.5;
+        return WIN;
+    }
 
-  else{
+    else{
     userMessage = " ";
     if (playerScore == 10  || playerScore == 11) {
-      if (bank >= 2*bet) {
-        cout << "If you want to double your bet then enter 'Yes' otherwise 'No': ";
-        cin >> userMessage;
+        if (bank >= 2*bet) {
+            cout << "If you want to double your bet then enter 'Yes' otherwise 'No': ";
+            cin >> userMessage;
 
         if (userMessage == "Yes")
-          bet *= 2;
-      }
-      else {
-        cout << "If you want all in then enter 'Yes' otherwise 'No': ";
-        cin >> userMessage;
+            bet *= 2;
+        }
+        else {
+            cout << "If you want all in then enter 'Yes' otherwise 'No': ";
+            cin >> userMessage;
 
         if (userMessage == "Yes")
-          bet = bank;
-      }
+            bet = bank;
+        }
 
-      if (userMessage == "Yes") {
-          playerScore += getCardValue(deck[index]);
-          playerCards.push_back(deck[index]);
-          index++;
-          output(playerCards,dealerCards);
+        if (userMessage == "Yes") {
+            playerScore += getCardValue(deck[index]);
+            playerCards.push_back(deck[index]);
+            index++;
+            output(playerCards,dealerCards);
 
-          if (playerScore > 21) {
+            if (playerScore > 21) {
             return LOSE;
-          }
-      }
-
-      else if (playerScore<21) {
-        while (true) {
-          userMessage = " ";
-          cout << "If you want to get another card then enter 'Yes' otherwise 'No': ";
-          cin >> userMessage;
-            if (userMessage == "Yes") {
-              playerScore += getCardValue(deck[index]);
-              playerCards.push_back(deck[index]);
-
-              index++;
-              output(playerCards,dealerCards);
-
-              if (playerScore > 21){
-                return LOSE;
-              }
-            }
-            if (userMessage == "No" || playerScore == 21) {
-              break;
             }
         }
-      }
+
+        else if (playerScore<21) {
+        while (true) {
+            userMessage = " ";
+            cout << "If you want to get another card then enter 'Yes' otherwise 'No': ";
+            cin >> userMessage;
+            if (userMessage == "Yes") {
+                playerScore += getCardValue(deck[index]);
+                playerCards.push_back(deck[index]);
+
+                index++;
+                output(playerCards,dealerCards);
+
+                if (playerScore > 21){
+                return LOSE;
+                }
+            }
+            if (userMessage == "No" || playerScore == 21) {
+                break;
+            }
+        }
+        }
     }
     else if (userMessage != "Yes" && playerScore<21) {
-      while (true) {
+        while (true) {
         userMessage = " ";
         cout << "If you want to get another card then enter 'Yes' otherwise 'No': ";
         cin >> userMessage;
 
         if (userMessage == "Yes") {
-          playerScore += getCardValue(deck[index]);
-          playerCards.push_back(deck[index]);
-          index++;
-          output(playerCards,dealerCards);
+            playerScore += getCardValue(deck[index]);
+            playerCards.push_back(deck[index]);
+            index++;
+            output(playerCards,dealerCards);
 
-          if (playerScore > 21) {
+            if (playerScore > 21) {
             return LOSE;
-          }  
+            }  
         }
 
         if (userMessage == "No"  || playerScore == 21) {
-          break;
+            break;
         }
-      }
+        }
     }
     
     // Вторая карта дилеру
@@ -185,17 +183,17 @@ gameResult playBlackJack(array<Card, deck_size>& deck) {
     }
     
     if(insBet!=0) {
-      if(dealerScore==21) {
-        bank+=insBet*2;
-      }
-      else {
-        bank-=insBet;
-      }
+        if(dealerScore==21) {
+            bank+=insBet*2;
+        }
+        else {
+            bank-=insBet;
+        }
     }
 
     if(playerScore == 21 && dealerScore != 21 && playerCards.size()==2) {
-      bet*=1.5;
-      return WIN;
+        bet*=1.5;
+        return WIN;
     }
     while (dealerScore < 17) {
       dealerScore += getCardValue(deck[index]);
@@ -205,13 +203,13 @@ gameResult playBlackJack(array<Card, deck_size>& deck) {
       output(playerCards,dealerCards);
     }
     if (dealerScore > 21  || playerScore > dealerScore) {
-      return WIN;
+        return WIN;
     }
     else if (dealerScore == playerScore) {
-      return DRAW;
+        return DRAW;
     }
     else {
-      return LOSE;
+        return LOSE;
     }
     //return WIN;
 
