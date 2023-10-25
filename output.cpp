@@ -71,7 +71,7 @@ void output(vector <Card> playerCards, vector <Card> dilerCards) {
 	for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < dilerCards.size(); j++) {
 			switch (dilerCards.at(j).rank) {
-			case RANK_NONE:  cout << cardsUp[13][i]; break;
+			case RANK_UNKNOWN:  cout << cardsUp[13][i]; break;
 			case RANK_2:	 cout << cardsUp[12][i]; break;
 			case RANK_3:	 cout << cardsUp[11][i]; break;
 			case RANK_4:	 cout << cardsUp[10][i]; break;
@@ -98,7 +98,7 @@ void output(vector <Card> playerCards, vector <Card> dilerCards) {
 			case HEARTS:   cout << cardsMid[1][i]; break;
 			case CLUBS:    cout << cardsMid[2][i]; break;
 			case SPADES:   cout << cardsMid[3][i]; break;
-			case SUIT_NONE:     cout << cardsMid[4][i]; break;
+			case SUIT_UNKNOWN:     cout << cardsMid[4][i]; break;
 			default:	                           break;
 			}
 		}
@@ -108,7 +108,7 @@ void output(vector <Card> playerCards, vector <Card> dilerCards) {
 	for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < dilerCards.size(); j++) {
 			switch (dilerCards.at(j).rank) {
-			case RANK_NONE:  cout << cardsDown[13][i]; break;
+			case RANK_UNKNOWN:  cout << cardsDown[13][i]; break;
 			case RANK_2:	 cout << cardsDown[12][i]; break;
 			case RANK_3:	 cout << cardsDown[11][i]; break;
 			case RANK_4:	 cout << cardsDown[10][i]; break;

@@ -13,9 +13,11 @@ using namespace constants;
 
 long long bank = 1000;
 long long bet = 0;
+string userMessage;
+vector <Card> playerCards; vector <Card> dealerCards;
 
-gameResult insuranceScenario(array<Card, deck_size>& deck, int playerScore, int dealerScore, vector <Card> playerCards, vector <Card> dealerCards) {
-    string userMessage;
+gameResult insuranceScenario(array<Card, deck_size>& deck, int playerScore, int dealerScore) {
+    //string userMessage;
     
     if (playerScore == 21) {
         cout << "First dealer's card is Ace and you have 21. " <<
@@ -64,10 +66,19 @@ gameResult insuranceScenario(array<Card, deck_size>& deck, int playerScore, int 
             }
         }
     }
+    return CONTINUE;
 }
 
 gameResult playBlackJack(array<Card, deck_size>& deck) {
-    string userMessage;
+
+    int dealerCardsCount=dealerCards.size();
+    int playerCardsCount=playerCards.size();
+    for(int i=0; i<dealerCardsCount;i++){
+        dealerCards.erase(dealerCards.end()-1);
+    }
+    for(int i=0; i<playerCardsCount;i++){
+        playerCards.erase(playerCards.end()-1);
+    }
 
     cout << "Enter your bet amount: ";
 
@@ -86,8 +97,9 @@ gameResult playBlackJack(array<Card, deck_size>& deck) {
 
     unsigned short playerScore = 0;
     unsigned short dealerScore = 0;
-    vector <Card> playerCards;
-    vector <Card> dealerCards;
+    //vector <Card> playerCards;
+    //vector <Card> dealerCards;
+    bool isDD=true;
 
     // Первая карта игроку
     unsigned short index = 0;
@@ -115,7 +127,7 @@ gameResult playBlackJack(array<Card, deck_size>& deck) {
         playerScore--;
 
     if (dealerScore == 11) {
-        gameResult tempResult = insuranceScenario(deck, playerScore, dealerScore, playerCards, dealerCards);
+        gameResult tempResult = insuranceScenario(deck, playerScore, dealerScore);
         if (tempResult != CONTINUE)
             return tempResult;
     }
@@ -133,6 +145,7 @@ gameResult playBlackJack(array<Card, deck_size>& deck) {
 
             if (userMessage == "Yes")
                 bet *= 2;
+                isDD=false;
         }
 
         else {
@@ -141,6 +154,7 @@ gameResult playBlackJack(array<Card, deck_size>& deck) {
 
             if (userMessage == "Yes")
                 bet = bank;
+                isDD=false;
         }
 
         if (userMessage == "Yes") {
@@ -153,29 +167,9 @@ gameResult playBlackJack(array<Card, deck_size>& deck) {
                 return LOSE;
         }
 
-        else if (playerScore < 21) {
-            while (true) {
-                cout << "If you want to get another card then enter "<<
-                    "'Yes' otherwise 'No': ";
-                cin >> userMessage;
-                if (userMessage == "Yes") {
-                    playerScore += getCardValue(deck.at(index));
-                    playerCards.push_back(deck.at(index));
-                    index++;
-                    output(playerCards, dealerCards);
-
-                    if (playerScore > 21){
-                    return LOSE;
-                    }
-                }
-                if (userMessage == "No" || playerScore == 21) {
-                    break;
-                }
-            }
-        }
     }
 
-    else if (userMessage != "Yes" && playerScore < 21) {
+    if (isDD && playerScore < 21) {
         while (true) {
             cout << "If you want to get another card then enter "<<
                 "'Yes' otherwise 'No': ";
@@ -198,14 +192,13 @@ gameResult playBlackJack(array<Card, deck_size>& deck) {
         }
     }
 
-    if (dealerCards.at(1).rank == RANK_UNKNOWN) {
+    if (dealerCards[1].rank == RANK_UNKNOWN) {
         dealerCards.erase(dealerCards.end() - 1);
         dealerScore += getCardValue(deck.at(3));
-        dealerCards.push_back(deck.at(3));
+        dealerCards.push_back(deck[3]);
         output(playerCards, dealerCards);
     }
     
-
     // Два туза у дилера
     if (dealerCards.at(0).rank == dealerCards.at(1).rank == RANK_ACE) {
         dealerScore--;
@@ -215,7 +208,6 @@ gameResult playBlackJack(array<Card, deck_size>& deck) {
         bet *= 1.5;
         return WIN;
     }
-
     while (dealerScore < 17) {
         dealerScore += getCardValue(deck.at(index));
         dealerCards.push_back(deck.at(index));
