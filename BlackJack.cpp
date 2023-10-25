@@ -20,7 +20,7 @@ gameResult insuranceScenario(array<Card, deck_size>& deck, unsigned short& playe
             "Do you want to get an immediate win ? Enter 'Yes' or 'No': ";
         getPlayerChoiceYesNo(userMessage);
 
-        if (is_answer_YES(userMessage))
+        if (is_answer_YES(userMessage)) 
             return WIN;
         else if (is_answer_NO(userMessage)) {
             dealerCards.erase(dealerCards.end() - 1);
@@ -196,7 +196,7 @@ gameResult playBlackJack(array<Card, deck_size>& deck, double &bet, double &bank
 
 
     // Два туза у дилера
-    if (dealerCards.at(0).rank == dealerCards.at(1).rank == RANK_ACE) {
+    if (dealerCards.at(0).rank == RANK_ACE && dealerCards.at(1).rank == RANK_ACE) {
         dealerScore--;
     }
     
