@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "constants.h"
+#include "../include/constants.h"
 
 using namespace playerChoices;
 

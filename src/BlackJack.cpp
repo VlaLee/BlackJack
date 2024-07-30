@@ -2,11 +2,11 @@
 #include <array>
 #include <string>
 #include <vector>
-#include "cardsgeneration.h"
-#include "constants.h"
-#include "mainstructures.h"
-#include "gameOutput.h"
-#include "gameInput.h"
+#include "../include/cardsgeneration.h"
+#include "../include/constants.h"
+#include "../include/mainstructures.h"
+#include "../include/gameOutput.h"
+#include "../include/gameInput.h"
 
 using namespace std;
 using namespace cards_characteristics;

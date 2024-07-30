@@ -3,8 +3,8 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
-#include "mainstructures.h"
-#include "constants.h"
+#include "../include/mainstructures.h"
+#include "../include/constants.h"
 
 using namespace std;
 using namespace cards_characteristics;

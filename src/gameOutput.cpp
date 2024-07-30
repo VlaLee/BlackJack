@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "mainstructures.h"
-#include "patterns.h"
+#include "../include/mainstructures.h"
+#include "../include/patterns.h"
 
 using namespace std;
 using namespace cards_characteristics;
