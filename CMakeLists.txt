@@ -1,0 +1,11 @@
+cmake_minimum_required (VERSION 3.10.2)
+project(BlackJack)
+project(${PROJECT_NAME})
+set(CMAKE_CXX_STANDARD 17)
+include_directories(${PROJECT_SOURCE_DIR}/include)
+file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+add_library(blaackjack_lib ${SRC_FILES})
+set(COMMON_INCLUDES ${PROJECT_SOURCE_DIR}/include)
+
+add_executable(BlackJack ${PROJECT_SOURCE_DIR}/src/BlackJack.cpp)
+target_link_libraries(BlackJack blaackjack_lib)
