@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstdlib>
 #include "../include/mainstructures.h"
 #include "../include/patterns.h"
 
@@ -60,7 +61,12 @@ void printCardBottomPart(const Card& card, const int i) {
 }
 
 void output(vector <Card> playerCards, vector <Card> dealerCards) {
-	system("cls");
+#ifdef _WIN32
+    system("cls");
+#else
+    // Предполагаем Unix-подобную систему (Linux, macOS, BSD и т.д.)
+    system("clear");
+#endif
 
 	unsigned short playerCardsCount = playerCards.size();
 	unsigned short dealerCardsCount = dealerCards.size();

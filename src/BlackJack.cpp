@@ -2,6 +2,7 @@
 #include <array>
 #include <string>
 #include <vector>
+#include <cstdlib>
 #include "../include/cardsgeneration.h"
 #include "../include/constants.h"
 #include "../include/mainstructures.h"
@@ -222,8 +223,12 @@ gameResult playBlackJack(array<Card, deck_size>& deck, double &bet, double &bank
 }
 
 int main() {
+#ifdef _WIN32
     system("cls");
-	
+#else
+    // Предполагаем Unix-подобную систему (Linux, macOS, BSD и т.д.)
+    system("clear");
+#endif
     // Создали колоду
     setRandomSettings();
     array<Card, deck_size> gameDeck;
